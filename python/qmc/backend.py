@@ -1,9 +1,10 @@
-from qiskit import Aer
-
-from qiskit_ionq_provider import IonQProvider 
-
 import asyncio
 from pathlib import Path
+
+from qiskit import Aer
+from qiskit_ionq_provider import IonQProvider 
+
+import random
 
 from qmc.utils import to_thread
 
@@ -17,10 +18,12 @@ class Backend:
 
 def _run_ionq_simulator(qc):
     backend = provider.get_backend("ionq_simulator")
-    job = backend.run(qc, shots=1)
-    job_id_bell = job.job_id()
-    result = job.result()
-    return result
+    job = backend.run(qc, shots=2)
+    result = job.result().get_counts().keys()
+    if len(result) == 1:
+        return list(result)[0]
+    else:
+        return random.choice(list(result))
 
 class SimulatorBackend(Backend):
     async def schedule_compilation(self, qc):
@@ -29,10 +32,9 @@ class SimulatorBackend(Backend):
 
 def _run_ionq_qpu(qc):
     backend = provider.get_backend("ionq_qpu")
-    job = backend.run(qc)
-    job_id_bell = job.job_id()
-    result = job.result()
-    return result
+    job = backend.run(qc, shots=1)
+    result = job.result().get_counts()
+    return list(result.keys())[0]
 
 class QPUBackend(Backend):
     async def schedule_compilation(self, qc):
