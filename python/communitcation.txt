@@ -60,7 +60,7 @@ Python sends the following response:
 
 {
     "circuit_index": {some number},
-    "counts": {
-        {bitpattern string}: count,
+    "qubit_result": {
+        "{qubit_index}": bool,
     }
 }
