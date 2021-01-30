@@ -1,0 +1,3 @@
+qsearch>=2.4.0
+qiskit-aer
+aiohttp
