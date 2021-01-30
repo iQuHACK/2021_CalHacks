@@ -17,7 +17,7 @@ class Backend:
 
 def _run_ionq_simulator(qc):
     backend = provider.get_backend("ionq_simulator")
-    job = backend.run(qc, shots=1000)
+    job = backend.run(qc, shots=1)
     job_id_bell = job.job_id()
     result = job.result()
     return result
