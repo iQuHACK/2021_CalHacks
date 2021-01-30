@@ -50,7 +50,7 @@ When Java would like to send a compilation, it sends the following JSON body in 
         {
             "gate_name": "{gate_name}",
             "qubit_indices": [{list of qubit UUIDs}],
-            "parameter": {float} or null
+            "parameter": {redstone_level} or null
         }
     ],
     "backend": "{simulator or qpu}"
