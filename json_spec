@@ -1,0 +1,55 @@
+Java has the "Qubit Log" which is a JSON document that maps qubits to circuits
+
+{
+    "qubit_index" : circuit_index,
+    "314" : 159,
+    "265" : 358
+}
+
+The Qubit Log gets modified in the following ways:
+- new entries are added when a qubit item is created
+- entries are deleted when qubit items are destroyed (optional)
+- the associated circuit may change when qubits are entangled
+- the associated circuit will change when the circuit is measured
+
+Qubit and Circuit indices may be either sequential or random, as long as the chance of an accidental collision is negligible
+
+
+Java also keeps the Circuit Log, which maps circuits to a collection of information about that circuit:
+
+{
+    "circuit_index" : {
+                          "qubits" : [first_qubit_index, second_qubit_index,...],
+                          "measure_blocks" : {
+                                                 "first_qubit_index" : measure_block_location_XYZ 
+                                             }
+                          "circuit" : [
+                                          {
+                                              "gate_name" : gate_name, (examples: "X", "CNOT", "XX", "RX" etc.)
+                                              "qubit_indices" : [first_qubit_index, ...],
+                                              "gate_parameter" : gate_parameter (this is ignored for gates like CNOT)
+                                          }
+                                      ]
+                      },
+
+    "159" : {
+                          "qubits" : [314, 265],
+                          "measure_blocks" : {
+                                                 "314" : [123, 456, 789]
+                                             }
+                          "circuit" : [
+                                          {
+                                              "gate_name" : "X"
+                                              "qubit_indices" : [314]
+                                              "gate_parameter" : 15/16 // let python multiply by pi
+                                          },
+                                          {
+                                              "gate_name" : "CNOT"
+                                              "qubit_indices" : [256, 314]
+                                              "gate_parameter" : 0 // this value is ignoredS
+                                          },
+                            
+                                      ]
+                      }
+}
+
