@@ -16,11 +16,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "me.oxe.bloq.ExampleMod"
+      "me.oxe.bloq.BloqMod"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.7.4",
