@@ -40,7 +40,7 @@ public class RXGateBlockEntity extends GateBlockEntity {
 
 
   public int getParameter() { // @ETHAN Use this value as the parameter for the added X gate
-   return world.getReceivedRedstonePower(this.pos);
+   return world.getReceivedRedstonePower(this.pos) + 1;
   }
 
 }

@@ -34,7 +34,7 @@ async def execute(request):
     qc = QuantumCircuit(1, 1)
     for (gate, param) in data:
         print(gate, param)
-        if int(param) == 0:
+        if gate == 'x':
             qc.x(0)
         else:
             qc.rx(float(param)* np.pi/32, 0)

@@ -88,7 +88,6 @@ public class QuantumWatcher {
             request.setEntity(params);
             HttpResponse response = httpclient.execute(request);
             String str = IOUtils.toString(response.getEntity().getContent(), StandardCharsets.UTF_8.name());
-            System.out.println(str);
             stack.putSubTag("result", StringTag.of(str));
         } catch(Exception e) {
             System.out.println(e.toString());
