@@ -1,0 +1,5 @@
+{
+    "variants" : {
+        "" : {"model" : "bloq:block/rx_gate_block"}
+    }
+}
