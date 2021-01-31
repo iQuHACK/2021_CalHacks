@@ -26,7 +26,7 @@ public class MeasureBlock extends GateBlock {
          BlockEntity localEntity = world.getBlockEntity(pos);
          if (localEntity instanceof MeasureBlockEntity) {
              MeasureBlockEntity measureEntity = (MeasureBlockEntity) localEntity;
-             return measureEntity.redstoneOutput;
+             return measureEntity.redstoneOutput();
          }
         return 0;
      }
