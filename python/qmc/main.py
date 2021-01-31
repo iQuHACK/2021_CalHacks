@@ -36,8 +36,10 @@ async def execute(request):
         print(gate, param)
         if gate == 'x':
             qc.x(0)
-        else:
+        elif gate == 'rx':
             qc.rx(float(param)* np.pi/32, 0)
+        elif gate == 'rz':
+            qc.rz(float(param) * np.pi / 32, 0)
     qc.measure(0,0)
 
     print(qc.qasm())

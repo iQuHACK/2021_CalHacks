@@ -62,6 +62,7 @@ public class BloqMod implements ModInitializer {
     stacks.add(new ItemStack(ITEM_QUBIT));
     stacks.add(new ItemStack(X_GATE_BLOCK_ITEM));
     stacks.add(new ItemStack(RX_GATE_BLOCK_ITEM));
+    stacks.add(new ItemStack(RZ_GATE_BLOCK_ITEM));
     stacks.add(new ItemStack(CONTROL_GATE_BLOCK_ITEM));
     stacks.add(new ItemStack(MEASURE_BLOCK_ITEM));
   }
