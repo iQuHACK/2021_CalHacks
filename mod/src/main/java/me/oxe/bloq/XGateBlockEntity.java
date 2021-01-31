@@ -1,6 +1,7 @@
 package me.oxe.bloq;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 
 public class XGateBlockEntity extends GateBlockEntity {
@@ -22,6 +23,17 @@ public class XGateBlockEntity extends GateBlockEntity {
   public void fromTag(BlockState state, CompoundTag tag) {
     super.fromTag(state, tag);
     dummy_number = tag.getInt("dummy_number");
+  }
+
+  @Override
+  public void setStack(int slot, ItemStack stack) {
+    if (slot == 0) {
+      if (!this.world.isClient) {
+        this.inventory.set(1, stack.copy());
+        stack.decrement(1);
+        markDirty();
+      }
+    }
   }
 
 }

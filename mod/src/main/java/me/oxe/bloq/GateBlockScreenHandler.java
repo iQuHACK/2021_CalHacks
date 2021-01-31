@@ -59,6 +59,12 @@ public class GateBlockScreenHandler extends ScreenHandler {
     return this.inventory.canPlayerUse(player);
   }
 
+  @Override
+  public boolean canInsertIntoSlot(ItemStack stack, Slot slot) {
+    System.out.println(slot.id);
+    return slot.id == 0;
+  }
+
   // Shift + Player Inv Slot
   @Override
   public ItemStack transferSlot(PlayerEntity player, int invSlot) {

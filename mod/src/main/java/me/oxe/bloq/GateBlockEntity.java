@@ -13,13 +13,38 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.Direction;
 
-public class GateBlockEntity extends BlockEntity implements ImplementedInventory, NamedScreenHandlerFactory {
+public abstract class GateBlockEntity extends BlockEntity implements GateBlockInventory, NamedScreenHandlerFactory {
 
-  private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
+  protected final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
+  // protected final PropertyDelegate propertyDelegate;
+  private int loading;
 
   public GateBlockEntity(BlockEntityType<?> type) {
     super(type);
+    // this.propertyDelegate = new PropertyDelegate() {
+    // public int get(int index) {
+    // switch (index) {
+    // case 0:
+    // return GateBlockEntity.this.loading;
+    // default:
+    // return 0;
+    // }
+    // }
+
+    // public void set(int index, int value) {
+    // switch (index) {
+    // case 0:
+    // GateBlockEntity.this.loading = value;
+    // break;
+    // }
+    // }
+
+    // public int size() {
+    // return 1;
+    // }
+    // };
   }
 
   @Override
@@ -50,5 +75,35 @@ public class GateBlockEntity extends BlockEntity implements ImplementedInventory
   public CompoundTag toTag(CompoundTag tag) {
     Inventories.toTag(tag, inventory);
     return super.toTag(tag);
+  }
+
+  public int[] getAvailableSlots(Direction side) {
+    if (side != Direction.DOWN)
+      return new int[] { 0 };
+    return new int[] { 1 };
+  }
+
+  public boolean canPlayerUse(PlayerEntity player) {
+    if (loading == 1)
+      return false;
+    return GateBlockInventory.super.canPlayerUse(player);
+  }
+
+  public boolean canInsert(int slot, ItemStack stack, Direction dir) {
+    if (slot == 1)
+      return false;
+    return true;
+  }
+
+  public boolean canExtract(int slot, ItemStack stack, Direction dir) {
+    if (slot == 0)
+      return false;
+    return true;
+  }
+
+  @Override
+  public ItemStack getStack(int slot) {
+    // TODO Auto-generated method stub
+    return GateBlockInventory.super.getStack(slot);
   }
 }

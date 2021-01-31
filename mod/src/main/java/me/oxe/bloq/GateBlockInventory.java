@@ -3,6 +3,7 @@ package me.oxe.bloq;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
 
@@ -12,7 +13,7 @@ import net.minecraft.util.collection.DefaultedList;
  *
  * Originally by Juuz
  */
-public interface ImplementedInventory extends Inventory {
+public interface GateBlockInventory extends SidedInventory {
 
   /**
    * Retrieves the item list of this inventory. Must return the same instance
@@ -20,19 +21,19 @@ public interface ImplementedInventory extends Inventory {
    */
   DefaultedList<ItemStack> getItems();
 
-  /**
-   * Creates an inventory from the item list.
-   */
-  static ImplementedInventory of(DefaultedList<ItemStack> items) {
-    return () -> items;
-  }
+  // /**
+  // * Creates an inventory from the item list.
+  // */
+  // static GateBlockInventory of(DefaultedList<ItemStack> items) {
+  // return () -> items;
+  // }
 
-  /**
-   * Creates a new inventory with the specified size.
-   */
-  static ImplementedInventory ofSize(int size) {
-    return of(DefaultedList.ofSize(size, ItemStack.EMPTY));
-  }
+  // /**
+  // * Creates a new inventory with the specified size.
+  // */
+  // static GateBlockInventory ofSize(int size) {
+  // return of(DefaultedList.ofSize(size, ItemStack.EMPTY));
+  // }
 
   /**
    * Returns the inventory size.
@@ -114,16 +115,6 @@ public interface ImplementedInventory extends Inventory {
   @Override
   default void clear() {
     getItems().clear();
-  }
-
-  /**
-   * Marks the state as dirty. Must be called after changes in the inventory, so
-   * that the game can properly save the inventory contents and notify neighboring
-   * blocks of inventory changes.
-   */
-  @Override
-  default void markDirty() {
-    // Override if you want behavior.
   }
 
   /**
