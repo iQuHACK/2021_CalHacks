@@ -16,7 +16,7 @@ import net.minecraft.util.collection.DefaultedList;
 
 public class GateBlockEntity extends BlockEntity implements ImplementedInventory, NamedScreenHandlerFactory {
 
-  private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(9, ItemStack.EMPTY);
+  private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
 
   public GateBlockEntity(BlockEntityType<?> type) {
     super(type);

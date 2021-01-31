@@ -32,18 +32,15 @@ public class GateBlockScreenHandler extends ScreenHandler {
     // some inventories do custom logic when a player opens it.
     inventory.onOpen(playerInventory.player);
 
-    // This will place the slot in the correct locations for a 3x3 Grid. The slots
-    // exist on both server and client!
-    // This will not render the background of the slots however, this is the Screens
-    // job
+    // This will place the slot in the middle top and middle bottom slots of a
+    // typical 3x3 dispenser inventory grid
+
+    // Our inventory
+    this.addSlot(new Slot(inventory, 0, 62 + 18, 17));
+    this.addSlot(new Slot(inventory, 1, 62 + 18, 17 + 2 * 18));
+
     int m;
     int l;
-    // Our inventory
-    for (m = 0; m < 3; ++m) {
-      for (l = 0; l < 3; ++l) {
-        this.addSlot(new Slot(inventory, l + m * 3, 62 + l * 18, 17 + m * 18));
-      }
-    }
     // The player inventory
     for (m = 0; m < 3; ++m) {
       for (l = 0; l < 9; ++l) {
