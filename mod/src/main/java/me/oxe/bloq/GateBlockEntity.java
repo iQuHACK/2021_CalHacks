@@ -103,7 +103,7 @@ public abstract class GateBlockEntity extends BlockEntity implements GateBlockIn
 
   @Override
   public ItemStack getStack(int slot) {
-    // TODO Auto-generated method stub
+    // yeet
     return GateBlockInventory.super.getStack(slot);
   }
 }
