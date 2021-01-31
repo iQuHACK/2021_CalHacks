@@ -1,0 +1,10 @@
+{
+    "variants" : {
+        "facing=north" : {"model" : "bloq:block/control_gate_block", "x" : 90},
+        "facing=east" : {"model" : "bloq:block/control_gate_block", "x": 90, "y" : 90},
+        "facing=south" : {"model" : "bloq:block/control_gate_block", "x" : 270},
+        "facing=west" : {"model" : "bloq:block/control_gate_block", "x" : 90, "y" : 270},
+        "facing=up" : {"model" : "bloq:block/control_gate_block"},
+        "facing=down" : {"model" : "bloq:block/control_gate_block", "x" : 180}
+    }
+}

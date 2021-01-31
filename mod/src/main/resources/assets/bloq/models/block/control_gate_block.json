@@ -1,0 +1,7 @@
+{
+    "parent" : "minecraft:block/cube_column",
+    "textures" : {
+        "end" : "bloq:block/control_gate_block",
+        "side" : "bloq:block/control_gate_up"
+    }
+}
