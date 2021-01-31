@@ -53,9 +53,8 @@ public class BloqMod implements ModInitializer {
   static {
     GATE_BLOCK_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(X_GATE_BLOCK_IDENTIFIER,
         GateBlockScreenHandler::new);
-    QUANTUM_GROUP = FabricItemGroupBuilder.create(new Identifier("bloq", "quantum"))
-        .icon(BloqMod::GenerateIconStack).appendItems(BloqMod::GenerateGroupContents).build();
-
+    QUANTUM_GROUP = FabricItemGroupBuilder.create(new Identifier("bloq", "quantum")).icon(BloqMod::GenerateIconStack)
+        .appendItems(BloqMod::GenerateGroupContents).build();
 
     ITEM_QUBIT = Registry.register(Registry.ITEM, QUBIT_IDENTIFIER,
         new ItemQubit(new FabricItemSettings().maxCount(1).group(QUANTUM_GROUP)));

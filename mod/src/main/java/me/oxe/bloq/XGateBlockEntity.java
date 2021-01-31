@@ -3,6 +3,8 @@ package me.oxe.bloq;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 
 public class XGateBlockEntity extends GateBlockEntity {
 
@@ -34,6 +36,11 @@ public class XGateBlockEntity extends GateBlockEntity {
         markDirty();
       }
     }
+  }
+
+  @Override
+  protected Text getContainerName() {
+    return new TranslatableText("bloq.gate.x");
   }
 
 }

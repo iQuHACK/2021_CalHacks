@@ -1,23 +1,27 @@
 package me.oxe.bloq;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 
 public class GateBlockScreenHandler extends ScreenHandler {
   private final Inventory inventory;
+  private final PropertyDelegate propertyDelegate;
 
   // This constructor gets called on the client when the server wants it to open
   // the screenHandler,
   // The client will call the other constructor with an empty Inventory and the
   // screenHandler will automatically
   // sync this empty inventory with the inventory on the server.
-  public GateBlockScreenHandler(int syncId, PlayerInventory playerInventory) {
-    this(syncId, playerInventory, new SimpleInventory(2));
+  public GateBlockScreenHandler(int syncId, PlayerInventory playerInventory, PropertyDelegate propertyDelegate) {
+    this(syncId, playerInventory, new SimpleInventory(2), propertyDelegate);
   }
 
   // This constructor gets called from the BlockEntity on the server without
@@ -25,10 +29,12 @@ public class GateBlockScreenHandler extends ScreenHandler {
   // container
   // and can therefore directly provide it as an argument. This inventory will
   // then be synced to the client.
-  public GateBlockScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory) {
+  public GateBlockScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory,
+      PropertyDelegate propertyDelegate) {
     super(BloqMod.GATE_BLOCK_SCREEN_HANDLER, syncId);
     checkSize(inventory, 2);
     this.inventory = inventory;
+    this.propertyDelegate = propertyDelegate;
     // some inventories do custom logic when a player opens it.
     inventory.onOpen(playerInventory.player);
 
@@ -52,6 +58,7 @@ public class GateBlockScreenHandler extends ScreenHandler {
       this.addSlot(new Slot(playerInventory, m, 8 + m * 18, 142));
     }
 
+    this.addProperties(propertyDelegate);
   }
 
   @Override
@@ -69,7 +76,7 @@ public class GateBlockScreenHandler extends ScreenHandler {
   @Override
   public ItemStack transferSlot(PlayerEntity player, int invSlot) {
     ItemStack newStack = ItemStack.EMPTY;
-    Slot slot = this.slots.get(invSlot);
+    Slot slot = getSlot(invSlot);
     if (slot != null && slot.hasStack()) {
       ItemStack originalStack = slot.getStack();
       newStack = originalStack.copy();
@@ -89,5 +96,10 @@ public class GateBlockScreenHandler extends ScreenHandler {
     }
 
     return newStack;
+  }
+
+  @Environment(EnvType.CLIENT)
+  public boolean isLoading() {
+    return this.propertyDelegate.get(0) > 0;
   }
 }
