@@ -78,7 +78,7 @@ public class QuantumWatcher {
     }
 
     public static void sendQubitData(ItemStack stack) {
-        CompoundTag tag = stack.getSubTag("bloq:quantum_data");
+        CompoundTag tag = stack.getOrCreateSubTag("bloq:quantum_data");
         ListTag circuit = tag.getList("circuit", 10);
         CloseableHttpClient httpclient = HttpClients.createDefault();
         try {
@@ -88,7 +88,7 @@ public class QuantumWatcher {
             request.setEntity(params);
             HttpResponse response = httpclient.execute(request);
             String str = IOUtils.toString(response.getEntity().getContent(), StandardCharsets.UTF_8.name());
-            stack.putSubTag("result", StringTag.of(str));
+            tag.putInt("result", Integer.parseInt(str));
         } catch(Exception e) {
             System.out.println(e.toString());
         }

@@ -39,6 +39,11 @@ public class BloqMod implements ModInitializer {
   public static final BlockEntityType<RXGateBlockEntity> RX_GATE_BLOCK_ENTITY;
   private static final Identifier RX_GATE_BLOCK_IDENTIFIER = new Identifier(MOD_ID, "rx_gate_block");
 
+  public static final Block RZ_GATE_BLOCK;
+  public static final BlockItem RZ_GATE_BLOCK_ITEM;
+  public static final BlockEntityType<RZGateBlockEntity> RZ_GATE_BLOCK_ENTITY;
+  private static final Identifier RZ_GATE_BLOCK_IDENTIFIER = new Identifier(MOD_ID, "rz_gate_block");
+
   public static final Block CONTROL_GATE_BLOCK;
   public static final BlockItem CONTROL_GATE_BLOCK_ITEM;
   public static final BlockEntityType<ControlGateBlockEntity> CONTROL_GATE_BLOCK_ENTITY;
@@ -84,6 +89,13 @@ public class BloqMod implements ModInitializer {
         new BlockItem(RX_GATE_BLOCK, new Item.Settings().group(QUANTUM_GROUP)));
     RX_GATE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, RX_GATE_BLOCK_IDENTIFIER,
         BlockEntityType.Builder.create(RXGateBlockEntity::new, RX_GATE_BLOCK).build(null));
+
+    RZ_GATE_BLOCK = Registry.register(Registry.BLOCK, RZ_GATE_BLOCK_IDENTIFIER,
+        new RZGateBlock(FabricBlockSettings.copyOf(Blocks.HOPPER)));
+    RZ_GATE_BLOCK_ITEM = Registry.register(Registry.ITEM, RZ_GATE_BLOCK_IDENTIFIER,
+        new BlockItem(RZ_GATE_BLOCK, new Item.Settings().group(QUANTUM_GROUP)));
+    RZ_GATE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, RZ_GATE_BLOCK_IDENTIFIER,
+        BlockEntityType.Builder.create(RZGateBlockEntity::new, RZ_GATE_BLOCK).build(null));
 
     CONTROL_GATE_BLOCK = Registry.register(Registry.BLOCK, CONTROL_GATE_BLOCK_IDENTIFIER,
         new ControlGateBlock(FabricBlockSettings.copyOf(Blocks.HOPPER)));
