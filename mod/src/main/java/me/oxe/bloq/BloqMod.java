@@ -1,5 +1,7 @@
 package me.oxe.bloq;
 
+import java.util.List;
+
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -8,12 +10,14 @@ import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.item.TooltipContext.Default;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.registry.Registry;
 
 public class BloqMod implements ModInitializer {
@@ -31,25 +35,31 @@ public class BloqMod implements ModInitializer {
   public static final BlockEntityType<XGateBlockEntity> X_GATE_BLOCK_ENTITY;
   private static final Identifier X_GATE_BLOCK_IDENTIFIER = new Identifier(MOD_ID, "x_gate_block");
 
+  private static ItemStack GenerateIconStack() {
+    return new ItemStack(ITEM_QUBIT);
+  }
+
+  private static void GenerateGroupContents(List<ItemStack> stacks) {
+    stacks.add(new ItemStack(ITEM_QUBIT));
+    stacks.add(new ItemStack(X_GATE_BLOCK_ITEM));
+  }
+
   static {
     GATE_BLOCK_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(X_GATE_BLOCK_IDENTIFIER,
         GateBlockScreenHandler::new);
+    QUANTUM_GROUP = FabricItemGroupBuilder.create(new Identifier("bloq", "quantum"))
+        .icon(BloqMod::GenerateIconStack).appendItems(BloqMod::GenerateGroupContents).build();
+
 
     ITEM_QUBIT = Registry.register(Registry.ITEM, QUBIT_IDENTIFIER,
-        new ItemQubit(new FabricItemSettings().maxCount(1)));
-
-    QUANTUM_GROUP = FabricItemGroupBuilder.create(new Identifier("bloq", "quantum"))
-        .icon(() -> new ItemStack(ITEM_QUBIT)).appendItems(stacks -> {
-          stacks.add(new ItemStack(ITEM_QUBIT));
-        }).build();
+        new ItemQubit(new FabricItemSettings().maxCount(1).group(QUANTUM_GROUP)));
 
     X_GATE_BLOCK = Registry.register(Registry.BLOCK, X_GATE_BLOCK_IDENTIFIER,
         new XGateBlock(FabricBlockSettings.copyOf(Blocks.HOPPER)));
     X_GATE_BLOCK_ITEM = Registry.register(Registry.ITEM, X_GATE_BLOCK_IDENTIFIER,
-        new BlockItem(X_GATE_BLOCK, new Item.Settings().group(ItemGroup.MISC)));
+        new BlockItem(X_GATE_BLOCK, new Item.Settings().group(QUANTUM_GROUP)));
     X_GATE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, X_GATE_BLOCK_IDENTIFIER,
         BlockEntityType.Builder.create(XGateBlockEntity::new, X_GATE_BLOCK).build(null));
-
   }
 
   @Override
