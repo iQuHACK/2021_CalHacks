@@ -1,0 +1,20 @@
+{
+    "type" : "minecraft:crafting_shaped",
+    "pattern" : [
+        "R R",
+        " Q ",
+        "R R"
+    ],
+    "key" : {
+        "R" : {
+            "item" : "minecraft:redstone"
+        },
+        "Q" : {
+            "item" : "bloq:qubit"
+        }
+    },
+    "result" : {
+        "item" : "bloq:x_gate_block",
+        "count" : 1
+    }
+}
