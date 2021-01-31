@@ -1,0 +1,14 @@
+{
+    "type" : "minecraft:crafting_shapeless",
+    "ingredients" : [
+    {
+        "item" : "minecraft:redstone_comparator"
+    },
+    {
+        "item" : "bloq:x_gate_block"
+    }],
+    "result" : {
+        "item" : "bloq:rx_gate_block",
+        "count" : 1
+    }
+}
