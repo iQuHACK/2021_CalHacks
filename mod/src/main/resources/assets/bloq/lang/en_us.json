@@ -4,5 +4,6 @@
     "itemGroup.bloq.quantum" : "Quantum Computing",
     "block.bloq.x_gate_block" : "X Gate",
     "block.bloq.rx_gate_block" : "Rx Gate",
+    "block.bloq.measure_block" : "Measure Block",
     "block.bloq.control_gate_block" : "Control Gate"
 }

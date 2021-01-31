@@ -1,0 +1,8 @@
+{
+    "type" : "minecraft:crafting_shapeless",
+    "ingredients" : [{"item":"bloq:qubit"},{"item":"bloq:redstone_comparator"}],
+    "result" : {
+        "item" : "bloq:measure_block",
+        "count" : 1
+    }
+}

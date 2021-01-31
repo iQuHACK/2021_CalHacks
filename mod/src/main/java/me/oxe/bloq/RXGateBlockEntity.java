@@ -29,12 +29,16 @@ public class RXGateBlockEntity extends GateBlockEntity {
   public void setStack(int slot, ItemStack stack) {
     if (slot == 0) {
       if (!this.world.isClient) {
+        QuantumWatcher watcher = QuantumWatcher.getInstance();
+        watcher.appendQubitGate(stack, "rx", getParameter());
         this.inventory.set(1, stack.copy());
         stack.decrement(1);
         markDirty();
       }
     }
   }
+
+}
 
   public int getParameter() { // @ETHAN Use this value as the parameter for the added X gate
    return world.getReceivedRedstonePower(this.pos);

@@ -3,6 +3,7 @@ package me.oxe.bloq;
 import net.minecraft.item.ItemStack;
 
 public class MeasureBlockEntity extends GateBlockEntity {
+    public int redstoneOutput = 6;
     public MeasureBlockEntity() {
         super(BloqMod.MEASURE_BLOCK_ENTITY);
     }

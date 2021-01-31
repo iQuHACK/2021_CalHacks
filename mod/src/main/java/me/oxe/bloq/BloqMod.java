@@ -58,6 +58,7 @@ public class BloqMod implements ModInitializer {
     stacks.add(new ItemStack(X_GATE_BLOCK_ITEM));
     stacks.add(new ItemStack(RX_GATE_BLOCK_ITEM));
     stacks.add(new ItemStack(CONTROL_GATE_BLOCK_ITEM));
+    stacks.add(new ItemStack(MEASURE_BLOCK_ITEM));
   }
 
   static {
@@ -80,7 +81,7 @@ public class BloqMod implements ModInitializer {
     RX_GATE_BLOCK = Registry.register(Registry.BLOCK, RX_GATE_BLOCK_IDENTIFIER,
         new XGateBlock(FabricBlockSettings.copyOf(Blocks.HOPPER)));
     RX_GATE_BLOCK_ITEM = Registry.register(Registry.ITEM, RX_GATE_BLOCK_IDENTIFIER,
-        new BlockItem(X_GATE_BLOCK, new Item.Settings().group(QUANTUM_GROUP)));
+        new BlockItem(RX_GATE_BLOCK, new Item.Settings().group(QUANTUM_GROUP)));
     RX_GATE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, RX_GATE_BLOCK_IDENTIFIER,
         BlockEntityType.Builder.create(RXGateBlockEntity::new, RX_GATE_BLOCK).build(null));
 
