@@ -1,0 +1,5 @@
+{
+    "item.bloq.qubit" : "Qubit",
+    "item.bloq.qubit.tooltip" : "A Qubit that can be used with Quantum Gate blocks.",
+    "itemGroup.bloq.quantum" : "Quantum Computing"
+}
