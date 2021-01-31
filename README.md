@@ -1,3 +1,5 @@
+![logo](https://i.imgur.com/WnCRi0l.png)
+
 By Team CalHacks
 
 # Abstract
