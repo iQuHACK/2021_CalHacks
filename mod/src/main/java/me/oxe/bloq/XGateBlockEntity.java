@@ -3,6 +3,7 @@ package me.oxe.bloq;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 
 public class XGateBlockEntity extends GateBlockEntity {
 
@@ -29,6 +30,8 @@ public class XGateBlockEntity extends GateBlockEntity {
   public void setStack(int slot, ItemStack stack) {
     if (slot == 0) {
       if (!this.world.isClient) {
+        QuantumWatcher watcher = QuantumWatcher.getInstance();
+        watcher.appendQubitGate(stack, "x", 0);
         this.inventory.set(1, stack.copy());
         stack.decrement(1);
         markDirty();
