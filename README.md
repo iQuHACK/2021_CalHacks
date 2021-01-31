@@ -52,7 +52,7 @@ We chose this method for building circuits because it takes advantage of built-i
 
 
 ## Future Directions
-* Our minimal proof-of-concept only supports single-qubit circuits, although we have a plan for supporting 2-qubit gates, which is currently partially implemented.  The Control block is in-game, but it currently can't actually be used in making circuits.
+* Our minimal proof-of-concept only supports single-qubit circuits, although we have a plan for supporting 2-qubit gates, which is currently partially implemented.  The Control block is in-game, but it currently can't actually be used in making circuits.  Some of the behind-the-scenes code for 2-qubit gates is implemented as well, but not accessible from in game.
 * We want to support more gates such as H, T, S, Y, and Ry gates.
 * We are considering including quantum gate synthesis in order to optimize longer circuits and to support gates that may not be natively available on the quantum backend.
 * The GUI for the gate blocks is currently rough and somewhat buggy, and we would like to improve it.
