@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
@@ -38,6 +39,11 @@ public class BloqMod implements ModInitializer {
   public static final BlockEntityType<ControlGateBlockEntity> CONTROL_GATE_BLOCK_ENTITY;
   private static final Identifier CONTROL_GATE_BLOCK_IDENTIFIER = new Identifier(MOD_ID, "control_gate_block");
 
+  public static final Block MEASURE_BLOCK;
+  public static final BlockItem MEASURE_BLOCK_ITEM;
+  public static final BlockEntityType<MeasureBlockEntity> MEASURE_BLOCK_ENTITY;
+  private static final Identifier MEASURE_BLOCK_IDENTIFIER = new Identifier(MOD_ID, "measure_block");
+
   private static ItemStack GenerateIconStack() {
     return new ItemStack(ITEM_QUBIT);
   }
@@ -71,10 +77,19 @@ public class BloqMod implements ModInitializer {
         new BlockItem(CONTROL_GATE_BLOCK, new Item.Settings().group(QUANTUM_GROUP)));
     CONTROL_GATE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, CONTROL_GATE_BLOCK_IDENTIFIER,
         BlockEntityType.Builder.create(ControlGateBlockEntity::new, CONTROL_GATE_BLOCK).build(null));
+
+    MEASURE_BLOCK = Registry.register(Registry.BLOCK, MEASURE_BLOCK_IDENTIFIER, new MeasureBlock(FabricBlockSettings.copyOf(Blocks.HOPPER)));
+    MEASURE_BLOCK_ITEM = Registry.register(Registry.ITEM, MEASURE_BLOCK_IDENTIFIER,
+        new BlockItem(MEASURE_BLOCK, new Item.Settings().group(QUANTUM_GROUP)));
+    MEASURE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, "bloq:measure", BlockEntityType.Builder.create(MeasureBlockEntity::new, MEASURE_BLOCK).build(null));
   }
 
   @Override
   public void onInitialize() {
     System.out.println("Hello Fabric world!");
+    ServerLifecycleEvents.SERVER_STARTED.register((world) -> {
+        System.out.println(world.getName());
+    });
+
   }
 }

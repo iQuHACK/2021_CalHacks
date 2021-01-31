@@ -1,6 +1,16 @@
 package me.oxe.bloq;
 
+import java.net.URI;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.UUID;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -65,6 +75,24 @@ public class QuantumWatcher {
 
         tag_0.put("circuit", circuit_0);
         tag_1.put("circuit", circuit_1);
+    }
+
+    public static void sendQubitData(ItemStack stack) {
+        CompoundTag tag = stack.getSubTag("bloq:quantum_data");
+        ListTag circuit = tag.getList("circuit", 10);
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        try {
+            HttpPost request = new HttpPost("http://localhost:8080/execute");
+            StringEntity params = new StringEntity(String.format("{\"circuit_data\": \"%s\" }", Base64.getEncoder().encodeToString(circuit.toString().getBytes())));
+            request.addHeader("content-type", "application/json");
+            request.setEntity(params);
+            HttpResponse response = httpclient.execute(request);
+            String str = IOUtils.toString(response.getEntity().getContent(), StandardCharsets.UTF_8.name());
+            System.out.println(str);
+            stack.putSubTag("result", StringTag.of(str));
+        } catch(Exception e) {
+            System.out.println(e.toString());
+        }
     }
 
     public static void wipeCircuit(ItemStack qubit) {

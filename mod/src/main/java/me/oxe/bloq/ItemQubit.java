@@ -25,7 +25,8 @@ public class ItemQubit extends Item {
 
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
-        CompoundTag tag = itemStack.getOrCreateTag();
+        CompoundTag tag = itemStack.getOrCreateSubTag("result");
+        System.out.println(tag.toString());
         tooltip.add(tag.toText());
     }
 
